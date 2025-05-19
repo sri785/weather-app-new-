@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>City Comparison</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>City Weather Comparison</h1>
+  <div id="comparison-container"></div>
+
+  <button onclick="location.href='index.html'">Back</button>
+
+  <script>
+    const city1 = JSON.parse(localStorage.getItem('city1'));
+    const city2 = JSON.parse(localStorage.getItem('city2'));
+
+    if (city1 && city2) {
+      const comparisonContainer = document.getElementById('comparison-container');
+      comparisonContainer.innerHTML = `
+        <div class="comparison-card">
+          <h3>${city1.name}</h3>
+          <p>Temp: ${city1.main.temp}°C</p>
+          <p>Humidity: ${city1.main.humidity}%</p>
+          <p>Condition: ${city1.weather[0].description}</p>
+        </div>
+        <div class="comparison-card">
+          <h3>${city2.name}</h3>
+          <p>Temp: ${city2.main.temp}°C</p>
+          <p>Humidity: ${city2.main.humidity}%</p>
+          <p>Condition: ${city2.weather[0].description}</p>
+        </div>
+        <div class="comparison-summary">
+          <h4>Comparison Summary</h4>
+          <p>Temperature Difference: ${Math.abs(city1.main.temp - city2.main.temp)}°C</p>
+          <p>Humidity Difference: ${Math.abs(city1.main.humidity - city2.main.humidity)}%</p>
+        </div>
+      `;
+    } else {
+      document.getElementById('comparison-container').innerHTML = "<p>Missing data. Please go back and search both cities.</p>";
+    }
+  </script>
+</body>
+</html>
